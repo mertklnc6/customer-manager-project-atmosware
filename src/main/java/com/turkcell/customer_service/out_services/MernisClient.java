@@ -1,6 +1,6 @@
 package com.turkcell.customer_service.out_services;
 
-import com.turkcell.customer_service.common.exceptions.types.BusinessException;
+import com.turkcell.customer_service.core.utilities.exceptions.types.BusinessException;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

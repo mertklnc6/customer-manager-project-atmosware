@@ -1,6 +1,6 @@
 package com.turkcell.customer_service.business.dtos.requests;
 
-import com.turkcell.customer_service.annotations.validation.BirthDate;
+import com.turkcell.customer_service.core.annotations.validation.BirthDate;
 import com.turkcell.customer_service.business.constants.Regexes;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

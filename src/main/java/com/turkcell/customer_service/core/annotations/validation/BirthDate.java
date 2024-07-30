@@ -1,4 +1,4 @@
-package com.turkcell.customer_service.annotations.validation;
+package com.turkcell.customer_service.core.annotations.validation;
 
 import com.turkcell.customer_service.business.constants.Messages;
 import jakarta.validation.Constraint;

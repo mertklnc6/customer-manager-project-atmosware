@@ -1,4 +1,4 @@
-package com.turkcell.customer_service.core.business.abstracts;
+package com.turkcell.customer_service.core.abstacts;
 
 public interface MessageService {
     String getMessage(String key);

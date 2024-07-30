@@ -3,12 +3,11 @@ package com.turkcell.customer_service.business.rules;
 import com.turkcell.customer_service.adapters.mernis.CheckNationalityDTO;
 import com.turkcell.customer_service.adapters.mernis.CheckNationalityService;
 import com.turkcell.customer_service.business.constants.Messages;
-import com.turkcell.customer_service.common.exceptions.types.BusinessException;
-import com.turkcell.customer_service.common.exceptions.types.NotFoundException;
-import com.turkcell.customer_service.core.business.abstracts.MessageService;
+import com.turkcell.customer_service.core.abstacts.MessageService;
+import com.turkcell.customer_service.core.utilities.exceptions.types.BusinessException;
+import com.turkcell.customer_service.core.utilities.exceptions.types.NotFoundException;
 import com.turkcell.customer_service.data_access.abstracts.CustomerRepository;
 import com.turkcell.customer_service.entities.concretes.Customer;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerBusinessRules {
     private final CustomerRepository customerRepository;
-    private final MessageService messageService;
     private final CheckNationalityService checkNationalityService;
+    private final MessageService messageService;
 
 
     public void citizenNumberShouldBeUnique(String citizenNumber) {

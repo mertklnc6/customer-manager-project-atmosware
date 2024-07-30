@@ -25,25 +25,25 @@ public class CustomerController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public List<GetAllCustomerResponse> getAll(){
         return this.customerService.getAll();
     }
 
     @GetMapping({"/by-citizen-number"})
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public GetCustomerByCitizenNumber getByCitizenNumber(@Valid String citizenNumber){
         return this.customerService.getByCitizenNumber(citizenNumber);
     }
 
     @DeleteMapping("/delete")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public DeletedCustomerResponse delete(@Valid String citizenNumber){
         return this.customerService.delete(citizenNumber);
     }
 
     @PutMapping({"/change-active-status"})
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public ChangedStatusCustomerResponse changeActiveStatus(@Valid String citizenNumber){
         return this.customerService.changeActiveStatus(citizenNumber);
     }

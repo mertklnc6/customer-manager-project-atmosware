@@ -1,4 +1,4 @@
-package com.turkcell.customer_service.common.exceptions.types;
+package com.turkcell.customer_service.core.utilities.exceptions.types;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {

@@ -1,4 +1,4 @@
-package com.turkcell.customer_service.annotations.validation;
+package com.turkcell.customer_service.core.annotations.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
