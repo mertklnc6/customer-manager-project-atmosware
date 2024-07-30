@@ -27,19 +27,19 @@ public class CustomerServiceImpl implements CustomerService {
     public CreatedCustomerResponse add(CreateCustomerRequest createCustomerRequest) {
         Customer customer = this.customerMapper.toCustomer(createCustomerRequest);
 
-        this.customerBusinessRules.citizenNumberShouldBeValid(customer);
         this.customerBusinessRules.citizenNumberShouldBeUnique(customer.getCitizenNumber());
+        this.customerBusinessRules.citizenNumberShouldBeValid(customer);
 
-        this.customerRepository.save(customer);
+        Customer savedCustomer = this.customerRepository.save(customer);
 
-        return this.customerMapper.toCreatedCustomerResponse(customer);
+        return this.customerMapper.toCreatedCustomerResponse(savedCustomer);
     }
 
     @Override
     public List<GetAllCustomerResponse> getAll() {
         List<Customer> customers =  this.customerRepository.findAll();
 
-        return this.customerMapper.toGetAllCustomerResponse(customers);
+        return this.customerMapper.toGetAllCustomerResponseList(customers);
     }
 
     @Override
@@ -58,7 +58,9 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerBusinessRules.customerShouldBeExist(customerOptional);
 
         customerOptional.get().setDeletedDate(LocalDateTime.now());
-        return this.customerMapper.toDeletedCustomerResponse(customerOptional.get());
+        Customer customer = this.customerRepository.save(customerOptional.get());
+
+        return this.customerMapper.toDeletedCustomerResponse(customer);
     }
 
     @Override
@@ -68,6 +70,8 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerBusinessRules.customerShouldBeExist(customerOptional);
 
         customerOptional.get().setActive(!customerOptional.get().isActive());
-        return this.customerMapper.toChangedStatusCustomerResponse(customerOptional.get());
+        Customer updatedCustomer = this.customerRepository.save(customerOptional.get());
+
+        return this.customerMapper.toChangedStatusCustomerResponse(updatedCustomer);
     }
 }

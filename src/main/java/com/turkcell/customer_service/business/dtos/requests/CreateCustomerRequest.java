@@ -20,6 +20,7 @@ public record CreateCustomerRequest(
 
         @NotNull
         @BirthDate
+        @Pattern(regexp = Regexes.BIRTHDATE_VALIDATOR)
         LocalDate birthDate,
 
         @NotNull

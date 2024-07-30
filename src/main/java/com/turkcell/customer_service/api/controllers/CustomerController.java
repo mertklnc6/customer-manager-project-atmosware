@@ -42,7 +42,7 @@ public class CustomerController {
         return this.customerService.delete(citizenNumber);
     }
 
-    @PatchMapping({"/change-active-status"})
+    @PutMapping({"/change-active-status"})
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ChangedStatusCustomerResponse changeActiveStatus(@Valid String citizenNumber){
         return this.customerService.changeActiveStatus(citizenNumber);
