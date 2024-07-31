@@ -34,7 +34,14 @@ public class MernisClient {
 
     public String createRequestBody(String identityNumber, String firstName, String lastName, int birthYear) {
         return String.format(
-                "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><TCKimlikNoDogrula xmlns=\"http://tckimlik.nvi.gov.tr/WS\"><TCKimlikNo>%s</TCKimlikNo><Ad>%s</Ad><Soyad>%s</Soyad><DogumYili>%s</DogumYili></TCKimlikNoDogrula></soap:Body></soap:Envelope>",
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+                        "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
+                        "<soap:Body><TCKimlikNoDogrula xmlns=\"http://tckimlik.nvi.gov.tr/WS\">" +
+                        "<TCKimlikNo>%s</TCKimlikNo>" +
+                        "<Ad>%s</Ad>" +
+                        "<Soyad>%s</Soyad>" +
+                        "<DogumYili>%s</DogumYili>" +
+                        "</TCKimlikNoDogrula></soap:Body></soap:Envelope>",
                 identityNumber, firstName, lastName, birthYear);
     }
 }
