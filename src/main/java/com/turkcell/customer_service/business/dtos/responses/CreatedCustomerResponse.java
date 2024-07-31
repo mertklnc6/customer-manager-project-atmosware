@@ -1,6 +1,7 @@
 package com.turkcell.customer_service.business.dtos.responses;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record CreatedCustomerResponse(
@@ -8,7 +9,7 @@ public record CreatedCustomerResponse(
         String name,
         String surname,
         String citizenNumber,
-        LocalDate createdDate,
+        LocalDateTime createdDate,
         boolean isActive
 ) {
 }
