@@ -13,23 +13,22 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 54321
       POSTGRES_DB: customerDb
-    networks:
-      - common
 
-  customer-service:
-    build: ./
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: customer-service
-    restart: always
-    volumes:
-      - ./customerService:/app
     depends_on:
       - customer-db
-    networks:
-      - common
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customerDb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 54321
+
 
 volumes:
   customer_db:
 
-networks:
-  common:
-    driver: bridge
