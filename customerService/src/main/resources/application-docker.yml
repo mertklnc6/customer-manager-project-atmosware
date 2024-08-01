@@ -1,3 +1,5 @@
+server:
+  port: 7000
 spring:
   application:
     name: customer-service
@@ -5,13 +7,10 @@ spring:
     url: jdbc:postgresql://customer-db:5432/customerDb
     username: postgres
     password: 54321
-    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
       jakarta:
         persistence:
           validation:
