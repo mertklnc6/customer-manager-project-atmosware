@@ -1,9 +1,8 @@
-package com.turkcell.customer_service.api.controllers;
+package com.turkcell.customer_service.controller;
 
 import com.turkcell.customer_service.dto.responses.*;
 import com.turkcell.customer_service.service.abstracts.CustomerService;
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
-import com.turkcell.customer_service.controller.CustomerController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

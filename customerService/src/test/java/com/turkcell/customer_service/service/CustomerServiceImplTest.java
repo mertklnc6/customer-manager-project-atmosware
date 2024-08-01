@@ -1,6 +1,8 @@
-package com.turkcell.customer_service.business.concretes;
+package com.turkcell.customer_service.service;
 
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
+import com.turkcell.customer_service.external.mernis.CheckNationalityDTO;
+import com.turkcell.customer_service.external.mernis.CheckNationalityService;
 import com.turkcell.customer_service.mapper.CustomerMapper;
 import com.turkcell.customer_service.service.rules.CustomerBusinessRules;
 import com.turkcell.customer_service.repository.CustomerRepository;
@@ -53,8 +55,8 @@ public class CustomerServiceImplTest {
         now = LocalDateTime.now();
         customerId = UUID.randomUUID();
     }
-
     //checkOfferListForSTBChangeTask_when_invalidContractId_then_throwBusinessException
+
     @Test
     void add_shouldAddCustomer() {
 
@@ -75,12 +77,6 @@ public class CustomerServiceImplTest {
         // Assert
         assertNotNull(response);
         assertEquals(createdCustomerResponse, response);
-        assertEquals(customerId, response.id());
-        assertEquals("mert", response.name());
-        assertEquals("kılınç", response.surname());
-        assertEquals(citizenNumber, response.citizenNumber());
-        assertEquals(now, response.createdDate());
-        assertEquals(true, response.isActive());
 
         verify(customerBusinessRules).citizenNumberShouldBeUnique(any());
         verify(customerBusinessRules).citizenNumberShouldBeValid(any(Customer.class));
@@ -245,6 +241,9 @@ public class CustomerServiceImplTest {
         verify(customerMapper).toChangedStatusCustomerResponse(any(Customer.class));
 
     }
+
+
+
 }
 
 
