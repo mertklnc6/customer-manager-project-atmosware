@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: customer-service
+  datasource:
+    url: jdbc:postgresql://customer-db:5432/customerDb
+    username: postgres
+    password: 54321
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+    show-sql: true
