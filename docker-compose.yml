@@ -14,6 +14,17 @@ services:
       POSTGRES_PASSWORD: 54321
       POSTGRES_DB: customerDb
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: mert@mail.com
+      PGADMIN_DEFAULT_PASSWORD: 54321
+    ports:
+      - "5080:80"
+    depends_on:
+      - customer-db
+
   app:
     build:
       context: .

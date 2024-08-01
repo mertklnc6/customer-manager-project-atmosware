@@ -1,12 +1,9 @@
 package com.turkcell.customer_service.api.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.turkcell.customer_service.business.abstracts.CustomerService;
-import com.turkcell.customer_service.business.dtos.requests.CreateCustomerRequest;
-import com.turkcell.customer_service.business.dtos.responses.*;
-import com.turkcell.customer_service.entities.concretes.Customer;
-import org.checkerframework.checker.units.qual.C;
+import com.turkcell.customer_service.dto.responses.*;
+import com.turkcell.customer_service.service.abstracts.CustomerService;
+import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
+import com.turkcell.customer_service.controller.CustomerController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

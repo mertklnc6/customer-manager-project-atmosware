@@ -1,11 +1,12 @@
 package com.turkcell.customer_service.business.concretes;
 
-import com.turkcell.customer_service.business.dtos.requests.CreateCustomerRequest;
-import com.turkcell.customer_service.business.dtos.responses.*;
-import com.turkcell.customer_service.business.mappers.CustomerMapper;
-import com.turkcell.customer_service.business.rules.CustomerBusinessRules;
-import com.turkcell.customer_service.data_access.abstracts.CustomerRepository;
-import com.turkcell.customer_service.entities.concretes.Customer;
+import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
+import com.turkcell.customer_service.mapper.CustomerMapper;
+import com.turkcell.customer_service.service.rules.CustomerBusinessRules;
+import com.turkcell.customer_service.repository.CustomerRepository;
+import com.turkcell.customer_service.dto.responses.*;
+import com.turkcell.customer_service.model.Customer;
+import com.turkcell.customer_service.service.concretes.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,6 +54,7 @@ public class CustomerServiceImplTest {
         customerId = UUID.randomUUID();
     }
 
+    //checkOfferListForSTBChangeTask_when_invalidContractId_then_throwBusinessException
     @Test
     void add_shouldAddCustomer() {
 
