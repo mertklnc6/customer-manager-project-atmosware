@@ -1,11 +1,11 @@
-package com.turkcell.customer_service.service.concretes;
+package com.turkcell.customer_service.service.impl;
 
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
 import com.turkcell.customer_service.dto.responses.*;
 import com.turkcell.customer_service.mapper.CustomerMapper;
 import com.turkcell.customer_service.model.Customer;
 import com.turkcell.customer_service.repository.CustomerRepository;
-import com.turkcell.customer_service.service.abstracts.CustomerService;
+import com.turkcell.customer_service.service.CustomerService;
 import com.turkcell.customer_service.service.rules.CustomerBusinessRules;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

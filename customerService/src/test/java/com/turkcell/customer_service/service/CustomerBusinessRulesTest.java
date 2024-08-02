@@ -8,13 +8,11 @@ import com.turkcell.customer_service.external.mernis.CheckNationalityService;
 import com.turkcell.customer_service.model.Customer;
 import com.turkcell.customer_service.repository.CustomerRepository;
 import com.turkcell.customer_service.service.rules.CustomerBusinessRules;
-import com.turkcell.customer_service.util.abstracts.MessageService;
-import org.junit.jupiter.api.BeforeEach;
+import com.turkcell.customer_service.util.MessageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;

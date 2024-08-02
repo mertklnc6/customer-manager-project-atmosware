@@ -2,7 +2,7 @@ package com.turkcell.customer_service.mapper;
 
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
 import com.turkcell.customer_service.dto.responses.*;
-import com.turkcell.customer_service.mapper.abstracts.MapstructService;
+import com.turkcell.customer_service.util.MapstructService;
 import com.turkcell.customer_service.model.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

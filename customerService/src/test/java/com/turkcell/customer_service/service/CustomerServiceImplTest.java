@@ -1,14 +1,15 @@
 package com.turkcell.customer_service.service;
 
+import com.turkcell.customer_service.constant.Messages;
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
-import com.turkcell.customer_service.external.mernis.CheckNationalityDTO;
-import com.turkcell.customer_service.external.mernis.CheckNationalityService;
+import com.turkcell.customer_service.exception.types.BusinessException;
+import com.turkcell.customer_service.exception.types.NotFoundException;
 import com.turkcell.customer_service.mapper.CustomerMapper;
 import com.turkcell.customer_service.service.rules.CustomerBusinessRules;
 import com.turkcell.customer_service.repository.CustomerRepository;
 import com.turkcell.customer_service.dto.responses.*;
 import com.turkcell.customer_service.model.Customer;
-import com.turkcell.customer_service.service.concretes.CustomerServiceImpl;
+import com.turkcell.customer_service.service.impl.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -84,6 +85,53 @@ public class CustomerServiceImplTest {
     }
 
     @Test
+    void add_shouldThrowBusinessException_whenCitizenNumberAlreadyExists() {
+
+        // Arrange
+        CreateCustomerRequest createCustomerRequest =
+                new CreateCustomerRequest("mert", "kılınç", LocalDate.of(1999, 6, 8), citizenNumber, true);
+
+        when(customerMapper.toCustomer(createCustomerRequest)).thenReturn(customer);
+        doThrow(new BusinessException(Messages.CustomerMessages.CITIZEN_NUMBER_ALREADY_EXISTS))
+                .when(customerBusinessRules).citizenNumberShouldBeUnique(any());
+
+        // Act & Assert
+        BusinessException exception = assertThrows(BusinessException.class, () -> {
+            customerServiceImpl.add(createCustomerRequest);
+        });
+
+        assertEquals(Messages.CustomerMessages.CITIZEN_NUMBER_ALREADY_EXISTS, exception.getMessage());
+
+        verify(customerBusinessRules).citizenNumberShouldBeUnique(any());
+        verify(customerBusinessRules, never()).citizenNumberShouldBeValid(any(Customer.class));
+        verify(customerRepository, never()).save(any(Customer.class));
+    }
+
+    @Test
+    void add_shouldThrowBusinessException_whenCitizenNumberIsInvalid() {
+
+        // Arrange
+        CreateCustomerRequest createCustomerRequest =
+                new CreateCustomerRequest("mert", "kılınç", LocalDate.of(1999, 6, 8), citizenNumber, true);
+
+        when(customerMapper.toCustomer(createCustomerRequest)).thenReturn(customer);
+        doNothing().when(customerBusinessRules).citizenNumberShouldBeUnique(any());
+        doThrow(new BusinessException(Messages.CustomerMessages.CITIZEN_NUMBER_NOT_VALID))
+                .when(customerBusinessRules).citizenNumberShouldBeValid(any(Customer.class));
+
+        // Act & Assert
+        BusinessException exception = assertThrows(BusinessException.class, () -> {
+            customerServiceImpl.add(createCustomerRequest);
+        });
+
+            assertEquals(Messages.CustomerMessages.CITIZEN_NUMBER_NOT_VALID, exception.getMessage());
+
+        verify(customerBusinessRules).citizenNumberShouldBeUnique(any());
+        verify(customerBusinessRules).citizenNumberShouldBeValid(any(Customer.class));
+        verify(customerRepository, never()).save(any(Customer.class));
+    }
+
+    @Test
     void getAll_shouldReturnAllCustomers() {
 
         // Arrange
@@ -152,6 +200,27 @@ public class CustomerServiceImplTest {
     }
 
     @Test
+    void getByCitizenNumber_shouldThrowNotFoundException_whenCustomerDoesNotExist() {
+        // Arrange
+        String nonExistentCitizenNumber = "99999999999";
+
+        when(customerRepository.findByCitizenNumber(nonExistentCitizenNumber)).thenReturn(Optional.empty());
+        doThrow(new NotFoundException(Messages.CustomerMessages.NOT_FOUND))
+                .when(customerBusinessRules).customerShouldBeExist(any());
+
+        // Act & Assert
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> {
+            customerServiceImpl.getByCitizenNumber(nonExistentCitizenNumber);
+        });
+
+        assertEquals(Messages.CustomerMessages.NOT_FOUND, exception.getMessage());
+
+        verify(customerRepository).findByCitizenNumber(nonExistentCitizenNumber);
+        verify(customerBusinessRules).customerShouldBeExist(any());
+        verify(customerMapper, never()).toGetCustomerByCitizenNumber(any());
+    }
+
+    @Test
     void delete_shouldReturnDeletedCustomerResponse() {
         // Arrange
         customer.setId(customerId);
@@ -193,6 +262,28 @@ public class CustomerServiceImplTest {
         verify(customerBusinessRules).customerShouldBeExist(any(Optional.class));
         verify(customerRepository).save(any(Customer.class));
         verify(customerMapper).toDeletedCustomerResponse(any(Customer.class));
+    }
+
+    @Test
+    void delete_shouldThrowNotFoundException_whenCustomerDoesNotExist() {
+        // Arrange
+        String nonExistentCitizenNumber = "99999999999";
+
+        when(customerRepository.findByCitizenNumber(nonExistentCitizenNumber)).thenReturn(Optional.empty());
+        doThrow(new NotFoundException(Messages.CustomerMessages.NOT_FOUND))
+                .when(customerBusinessRules).customerShouldBeExist(any());
+
+        // Act & Assert
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> {
+            customerServiceImpl.delete(nonExistentCitizenNumber);
+        });
+
+        assertEquals(Messages.CustomerMessages.NOT_FOUND, exception.getMessage());
+
+        verify(customerRepository).findByCitizenNumber(nonExistentCitizenNumber);
+        verify(customerBusinessRules).customerShouldBeExist(any());
+        verify(customerRepository, never()).save(any());
+        verify(customerMapper, never()).toDeletedCustomerResponse(any());
     }
 
     @Test
@@ -241,6 +332,29 @@ public class CustomerServiceImplTest {
         verify(customerMapper).toChangedStatusCustomerResponse(any(Customer.class));
 
     }
+
+    @Test
+    void changeActiveStatus_shouldThrowNotFoundException_whenCustomerDoesNotExist() {
+        // Arrange
+        String nonExistentCitizenNumber = "99999999999";
+
+        when(customerRepository.findByCitizenNumber(nonExistentCitizenNumber)).thenReturn(Optional.empty());
+        doThrow(new NotFoundException(Messages.CustomerMessages.NOT_FOUND))
+                .when(customerBusinessRules).customerShouldBeExist(any());
+
+        // Act & Assert
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> {
+            customerServiceImpl.changeActiveStatus(nonExistentCitizenNumber);
+        });
+
+        assertEquals(Messages.CustomerMessages.NOT_FOUND, exception.getMessage());
+
+        verify(customerRepository).findByCitizenNumber(nonExistentCitizenNumber);
+        verify(customerBusinessRules).customerShouldBeExist(any());
+        verify(customerRepository, never()).save(any());
+        verify(customerMapper, never()).toChangedStatusCustomerResponse(any());
+    }
+
 
 
 

@@ -1,4 +1,4 @@
-package com.turkcell.customer_service.service.abstracts;
+package com.turkcell.customer_service.service;
 
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
 import com.turkcell.customer_service.dto.responses.*;

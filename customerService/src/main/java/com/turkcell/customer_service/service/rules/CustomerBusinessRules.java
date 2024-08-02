@@ -7,7 +7,7 @@ import com.turkcell.customer_service.external.mernis.CheckNationalityDTO;
 import com.turkcell.customer_service.external.mernis.CheckNationalityService;
 import com.turkcell.customer_service.model.Customer;
 import com.turkcell.customer_service.repository.CustomerRepository;
-import com.turkcell.customer_service.util.abstracts.MessageService;
+import com.turkcell.customer_service.util.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

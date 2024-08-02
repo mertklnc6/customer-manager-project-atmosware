@@ -1,4 +1,4 @@
-package com.turkcell.customer_service.mapper.abstracts;
+package com.turkcell.customer_service.util;
 
 import org.mapstruct.MapperConfig;
 import org.mapstruct.ReportingPolicy;

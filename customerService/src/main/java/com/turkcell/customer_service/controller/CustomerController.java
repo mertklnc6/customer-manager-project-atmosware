@@ -2,7 +2,7 @@ package com.turkcell.customer_service.controller;
 
 import com.turkcell.customer_service.dto.requests.CreateCustomerRequest;
 import com.turkcell.customer_service.dto.responses.*;
-import com.turkcell.customer_service.service.abstracts.CustomerService;
+import com.turkcell.customer_service.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
